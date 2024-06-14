@@ -1,0 +1,7 @@
+.bsp
+.metals
+.scala-build
+.pulumi/*
+.pulumi/*.bak
+.pulumi/*.lock
+
