@@ -112,11 +112,9 @@ end Instances
       randomPet2: RandomPet @Id("pet-2")
   )
 
-  type RandomPetFactory = String => RandomPet
-
   def RandomPetModule = new ModuleDef {
     make[RandomPet].fromEffect(RandomPet("pet-1")).named("pet-1")
-    make[RandomPet].fromEffect(RandomPet("pet-1")).named("pet-2")
+    make[RandomPet].fromEffect(RandomPet("pet-2")).named("pet-2")
     make[RandomPetContainer]
 
   }
@@ -135,7 +133,7 @@ end Instances
   val result = resource.unsafeGet().map(_.get[RandomPetContainer])
 
   Stack.exports(
-    id1 = result.flatMap(_._1.id),
-    id2 = result.flatMap(_._2.id)
+    id1 = result.flatMap(_.randomPet1.id),
+    id2 = result.flatMap(_.randomPet2.id)
   )
 }
